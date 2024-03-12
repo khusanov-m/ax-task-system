@@ -1,0 +1,52 @@
+@switch (variant()) { @case('primary') {
+<div class="flex flex-col">
+  <label [for]="bind()" class="mb-2">
+    Эл. Почта@if(required()) {
+    <span class="text-blue">*</span>
+    }
+  </label>
+  <input
+    [id]="bind()"
+    [type]="type()"
+    [class]="variantClass"
+    class="outline-none"
+  />
+</div>
+} @case('outline') {
+<div class="relative rounded-t bg-white pt-5">
+  <input
+    [id]="bind()"
+    [type]="type()"
+    [required]="required()"
+    [disabled]="disabled()"
+    [placeholder]="placeholder()"
+    [class]="
+      [variantClass, error() ? 'placeholder-shown:border-red border-red' : '']
+        | cn
+    "
+  />
+  <label
+    [for]="bind()"
+    [class]="
+      [
+        labelClass,
+        error()
+          ? 'after:border-red peer-placeholder-shown:text-red peer-focus:text-red text-red'
+          : ''
+      ] | cn
+    "
+  >
+    Эл. Почта@if(required()) {
+    <span class="text-blue">*</span>
+    }
+  </label>
+  <button
+    (click)="iconClick.emit()"
+    class="absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2"
+  >
+    <ng-content select="[icon]" />
+  </button>
+</div>
+@if(error()) {
+<span class="pl-3 text-xs text-red">{{ error() }}</span>
+} } }

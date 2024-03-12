@@ -1,0 +1,48 @@
+<div class="grid grid-cols-3 gap-5 place-content-center p-5">
+  <div>
+    <p>Badges:</p>
+    <div class="space-y-3 flex flex-col">
+      <app-badge variant="danger" />
+      <app-badge variant="warn" />
+      <app-badge />
+    </div>
+  </div>
+
+  <div>
+    <p>Buttons:</p>
+
+    <div class="space-y-3 flex flex-col">
+      <app-button>Кнопка</app-button>
+
+      <app-button disabled>Кнопка</app-button>
+      <app-button variant="outline">Кнопка</app-button>
+      <app-button>
+        <span>Кнопка</span>
+        <svg-icon icon src="assets/icons/settings.svg" />
+      </app-button>
+      <app-button variant="outline">
+        <span>Кнопка</span>
+        <svg-icon icon src="assets/icons/settings.svg" />
+      </app-button>
+    </div>
+  </div>
+
+  <div class="bg-black p-3">
+    <p>Inputs:</p>
+
+    <div class="*:block space-y-3">
+      <app-input required />
+
+      <app-input required disabled variant="outline" />
+
+      <app-input required variant="outline">
+        <svg-icon icon src="assets/icons/settings.svg" />
+      </app-input>
+
+      <app-input variant="outline" error="Error message">
+        <svg-icon icon src="assets/icons/settings.svg" />
+      </app-input>
+    </div>
+  </div>
+  <app-select />
+</div>

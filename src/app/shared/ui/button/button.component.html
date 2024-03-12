@@ -1,0 +1,7 @@
+<button
+  class="h-[46px] rounded-[10px] px-[30px] pt-2 pb-2.5 flex items-center justify-center space-x-1.5 transition-colors duration-300 disabled:text-black disabled:bg-greybg disabled:cursor-not-allowed disabled:hover:bg-greybg disabled:hover:text-black"
+  [class]="variantClass"
+  [disabled]="disabled()"
+>
+  <ng-content />
+</button>
