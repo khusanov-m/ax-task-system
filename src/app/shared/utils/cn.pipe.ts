@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
   standalone: true,
 })
 export class CnPipe implements PipeTransform {
-  transform(...inputs: ClassValue[]): string {
+  public transform(...inputs: ClassValue[]): string {
     return twMerge(clsx(inputs));
   }
 }

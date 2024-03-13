@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-task-dialog',
+  selector: 'app-soon',
   standalone: true,
   imports: [],
-  templateUrl: './task-dialog.component.html',
-  styleUrl: './task-dialog.component.scss',
+  templateUrl: './soon.component.html',
+  styleUrl: './soon.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskDialogComponent {
+export class SoonComponent {
 
 }

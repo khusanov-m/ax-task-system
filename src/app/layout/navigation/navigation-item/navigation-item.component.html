@@ -1,0 +1,18 @@
+<li
+  class="flex items-center px-[30px] py-5 cursor-pointer text-black border-l-4 border-transparent transition-colors duration-300 hover:text-[#4971FF]"
+  [routerLink]="item()?.route"
+  routerLinkActive="text-[#4971FF] border-[#4971FF] bg-gradient-to-r from-[#4971FF]/10 to-[4971FF]/0"
+>
+  <svg-icon [src]="item()?.icon || ''" class="mr-4" />
+  <span class="whitespace-nowrap overflow-hidden text-ellipsis mr-4">
+    {{ item()?.name }}
+  </span>
+
+  @if(item()?.badge) {
+  <span
+    class="bg-blue text-white rounded-full size-6 text-center flex-none ml-auto"
+  >
+    {{ item()?.badge }}
+  </span>
+  }
+</li>

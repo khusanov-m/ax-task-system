@@ -1,13 +1,16 @@
 @switch (variant()) { @case('primary') {
 <div class="flex flex-col">
   <label [for]="bind()" class="mb-2">
-    Эл. Почта@if(required()) {
+    {{ label() }}@if(required()) {
     <span class="text-blue">*</span>
     }
   </label>
   <input
+    [formControl]="control()"
     [id]="bind()"
     [type]="type()"
+    [required]="required()"
+    [disabled]="disabled()"
     [class]="variantClass"
     class="outline-none"
   />
@@ -36,7 +39,7 @@
       ] | cn
     "
   >
-    Эл. Почта@if(required()) {
+    {{ label() }}@if(required()) {
     <span class="text-blue">*</span>
     }
   </label>

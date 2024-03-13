@@ -1,1 +1,71 @@
-<p>select works!</p>
+@if(standalone()) {
+<div
+  class="relative inline-block text-left"
+  appClickOutside
+  (clickOutside)="isShow.set(false)"
+>
+  <div>
+    <button
+      (click)="toggleShow()"
+      type="button"
+      class="inline-flex gap-x-1.5"
+      id="menu-button"
+      aria-expanded="true"
+      aria-haspopup="true"
+    >
+      {{ value() }}
+      <svg-icon src="assets/icons/arrow.svg" class="text-gray-400" />
+    </button>
+  </div>
+
+  @if(isShow()) {
+  <div
+    class="absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="menu-button"
+    tabindex="-1"
+  >
+    <div class="py-1" role="none">
+      @for(item of options(); track item.value) {
+      <button
+        (click)="onStandaloneSelect(item)"
+        class="text-black hover:bg-blue/15 w-full text-left block px-4 py-2 text-sm transition-colors duration-200"
+        role="menuitem"
+        tabindex="-1"
+      >
+        {{ item.displayName }}
+      </button>
+      }
+    </div>
+  </div>
+  }
+</div>
+} @else {
+<label class="mb-2" [for]="bind()">
+  {{ label() }}@if(required()) {
+  <span class="text-blue">*</span>
+  }
+</label>
+
+<div class="relative">
+  <select
+    [id]="bind()"
+    [value]="value()"
+    [required]="required()"
+    [disabled]="disabled()"
+    (change)="onChange($event)"
+    class="appearance-none pr-6 cursor-pointer outline-none border-2 border-greylight px-5 py-2.5 rounded-[10px] focus:border-blue w-full"
+  >
+    @if(placeholder()) {
+    <option selected disabled>{{ placeholder() }}</option>
+    } @for(item of options(); track item.value) {
+    <option [value]="item.value">{{ item.displayName }}</option>
+    }
+  </select>
+  <svg-icon
+    class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+    src="assets/icons/arrow.svg"
+  />
+</div>
+}

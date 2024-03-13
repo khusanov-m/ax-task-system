@@ -2,32 +2,42 @@
   <div>
     <p>Badges:</p>
     <div class="space-y-3 flex flex-col">
-      <app-badge variant="danger" />
-      <app-badge variant="warn" />
-      <app-badge />
+      <app-badge [variant]="'Высокий' | badge">Высокий</app-badge>
+      <app-badge [variant]="'Средний' | badge">Средний</app-badge>
+      <app-badge [variant]="'Низкий' | badge">Низкий</app-badge>
     </div>
   </div>
 
   <div>
     <p>Buttons:</p>
 
-    <div class="space-y-3 flex flex-col">
-      <app-button>Кнопка</app-button>
+    <div class="space-x-3 flex">
+      <div class="flex flex-col space-y-2">
+        <app-button variant="outline">Кнопка</app-button>
+        <app-button>Кнопка</app-button>
+        <app-button disabled>Кнопка</app-button>
+      </div>
 
-      <app-button disabled>Кнопка</app-button>
-      <app-button variant="outline">Кнопка</app-button>
-      <app-button>
-        <span>Кнопка</span>
-        <svg-icon icon src="assets/icons/settings.svg" />
-      </app-button>
-      <app-button variant="outline">
-        <span>Кнопка</span>
-        <svg-icon icon src="assets/icons/settings.svg" />
-      </app-button>
+      <div class="flex flex-col space-y-2">
+        <app-button withIcon variant="outline">
+          <span>Кнопка</span>
+          <svg-icon src="assets/icons/settings.svg" />
+        </app-button>
+
+        <app-button withIcon>
+          <span>Кнопка</span>
+          <svg-icon src="assets/icons/settings.svg" />
+        </app-button>
+
+        <app-button withIcon disabled>
+          <span>Кнопка</span>
+          <svg-icon src="assets/icons/settings.svg" />
+        </app-button>
+      </div>
     </div>
   </div>
 
-  <div class="bg-black p-3">
+  <div class="p-3">
     <p>Inputs:</p>
 
     <div class="*:block space-y-3">
@@ -36,13 +46,39 @@
       <app-input required disabled variant="outline" />
 
       <app-input required variant="outline">
-        <svg-icon icon src="assets/icons/settings.svg" />
+        <svg-icon src="assets/icons/settings.svg" />
       </app-input>
 
       <app-input variant="outline" error="Error message">
-        <svg-icon icon src="assets/icons/settings.svg" />
+        <svg-icon src="assets/icons/settings.svg" />
       </app-input>
     </div>
   </div>
-  <app-select />
+
+  <div>
+    <div>
+      <app-select
+        standalone
+        value="Standalone variant"
+        [options]="[
+          { value: 'random', displayName: 'Test 1' },
+          { value: 'option', displayName: 'Option 1' },
+          { value: 'finish', displayName: 'Last 1' }
+        ]"
+      />
+    </div>
+
+    <div>
+      <app-select
+        placeholder="Placeholder"
+        label="Label"
+        required
+        [options]="[
+          { value: 'random', displayName: 'Test 1' },
+          { value: 'option', displayName: 'Option 1' },
+          { value: 'finish', displayName: 'Last 1' }
+        ]"
+      />
+    </div>
+  </div>
 </div>

@@ -1,1 +1,27 @@
-<p>task-item works!</p>
+<tr
+  class="hover:bg-blue/10 transition-colors duration-200 border-b"
+  [class]="isLast() ? 'border-transparent' : 'border-greylight'"
+>
+  <td class="pl-[30px] py-3.5 align-middle">
+    {{ task()?.date | date : "dd MMMM yyyy" : undefined : "ru-RU" }}
+  </td>
+  <td class="py-3.5 align-middle">
+    {{ task()?.userId }}
+  </td>
+  <td class="py-3.5 align-middle">
+    <app-badge [variant]="(task()?.priority | badge) || ''">
+      {{ task()?.priority }}
+    </app-badge>
+  </td>
+  <td class="py-3.5 align-middle">
+    {{ task()?.title }}
+  </td>
+  <td class="pr-[30px] py-3.5 align-middle text-right">
+    <button
+      (click)="removeTask(task()?.id || '')"
+      class="text-black rounded-full p-2 transition-colors duration-200 hover:text-grey hover:bg-greybg"
+    >
+      <svg-icon src="assets/icons/x.svg" />
+    </button>
+  </td>
+</tr>

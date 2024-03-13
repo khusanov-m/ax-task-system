@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { IKeyValue } from '../ui.type';
 
 @Component({
   selector: 'app-badge',
@@ -9,26 +10,16 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgeComponent {
-  variant = input('primary');
-  #variants: { [key: string]: string } = {
+  public variant = input('primary');
+
+  #variants: IKeyValue = {
     primary: 'text-blue bg-[#F0F1FF]',
-    warn: 'text-orange bg-[#FAF7E3]',
-    success: 'text-green bg-green/10',
+    warning: 'text-orange bg-[#FAF7E3]',
+    success: 'text-lime-500 bg-lime-500/10',
     danger: 'text-red bg-[#FFEEEB]',
   };
 
-  #text: { [key: string]: string } = {
-    primary: 'Низкий',
-    warn: 'Средний',
-    success: 'Средний',
-    danger: 'Высокий',
-  };
-
-  get variantClass(): string {
+  protected get variantClass(): string {
     return this.#variants[this.variant()];
-  }
-
-  get textValue(): string {
-    return this.#text[this.variant()];
   }
 }

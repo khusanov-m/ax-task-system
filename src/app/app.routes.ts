@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from './features/auth/auth.component';
 import { AuthGuard } from './features/auth/guard/auth.guard';
-import { UiDemoComponent } from './shared/ui/ui-demo/ui-demo.component';
+import { NotFoundComponent, SoonComponent } from './shared';
 
 export const routes: Routes = [
   {
@@ -11,18 +10,43 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadComponent: () => AuthComponent,
+    loadComponent: () =>
+      import('./features/auth/auth.component').then((c) => c.AuthComponent),
     title: 'Authentication',
   },
   {
     path: 'ui-demo',
-    loadComponent: () => UiDemoComponent,
+    loadComponent: () => import('./shared').then((c) => c.UiDemoComponent),
     title: 'UI Demo Page',
   },
   {
     path: 'app',
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./features/task/task.routes').then((r) => r.TASK_ROUTES),
+    loadComponent: () =>
+      import('./layout/main-layout/main-layout.component').then(
+        (c) => c.MainLayoutComponent
+      ),
+    loadChildren: () => [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'tasks',
+      },
+      {
+        path: 'tasks',
+        loadComponent: () =>
+          import('./features/task/task-list/task-list.component').then(
+            (c) => c.TaskListComponent
+          ),
+      },
+      {
+        path: '**',
+        component: SoonComponent,
+      },
+    ],
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];

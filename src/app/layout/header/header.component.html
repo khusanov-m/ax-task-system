@@ -1,1 +1,29 @@
-<p>header works!</p>
+<header
+  class="px-[30px] pt-5 pb-2.5 bg-white border-l border-greylight space-y-5"
+>
+  <div class="flex items-center justify-between text-black">
+    <h2 class="text-[28px] font-semibold">Управление задачами</h2>
+    <div class="space-x-2.5 flex items-center text-xl">
+      <img src="assets/profile.png" alt="profile" />
+      <span>Елена Кот</span>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <div
+      class="border-2 border-greylight rounded-[10px] px-[30px] pt-2.5 pb-3 space-x-5 flex items-center focus-within:border-blue"
+    >
+      <span>Сортировать по:</span>
+      <app-select
+        standalone
+        [options]="sortOptions"
+        (onSelect)="handleSort($event)"
+        [value]="(sortBy$ | async)?.displayName || ''"
+      />
+    </div>
+
+    <app-button variant="primary" (click)="openTaskForm()">
+      Добавить задачу
+    </app-button>
+  </div>
+</header>

@@ -1,0 +1,35 @@
+<div class="fixed inset-0 bg-[#000]/10"></div>
+<div
+  class="fixed inset-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-[50px] pt-[30px] pb-[30px] rounded-[10px] shadow-lg z-50 text-black space-y-5"
+>
+  <div class="flex justify-between items-center">
+    <h2 class="font-semibold text-[28px]">Создание новой задачи</h2>
+    <button
+      (click)="closeDialog()"
+      class="hover:bg-greybg rounded-full p-2 inline-block float-right -mr-4 transition-colors duration-200"
+    >
+      <svg-icon src="assets/icons/x.svg" class="text-grey" />
+    </button>
+  </div>
+
+  <form class="space-y-[30px]">
+    <div class="flex items-center space-x-5">
+      <app-input label="Дата создания" type="date" />
+      <app-input class="w-full" label="Название" required />
+    </div>
+
+    <div>
+      <app-input label="Описание" required />
+    </div>
+    <!-- <app-radio-group /> -->
+
+    <div class="">
+      <app-select label="Исполнитель" [options]="[]" required />
+    </div>
+
+    <div class="flex space-x-2.5">
+      <app-button variant="primary">Сохранить</app-button>
+      <app-button variant="outline">Сохранить как черновик</app-button>
+    </div>
+  </form>
+</div>

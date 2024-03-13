@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
+import localeRu from '@angular/common/locales/ru';
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
@@ -17,6 +19,8 @@ import { routes } from './app.routes';
 import { AXTitleStrategy } from './config/route.title-strategy';
 import { AX_TASK_NGRX_EFFECTS } from './config/store/ax.effects';
 import { AX_TASK_NGRX_STORE } from './config/store/ax.store';
+
+registerLocaleData(localeRu);
 
 export const appConfig: ApplicationConfig = {
   providers: [
