@@ -1,25 +1,37 @@
 <tr
-  class="hover:bg-blue/10 transition-colors duration-200 border-b"
-  [class]="isLast() ? 'border-transparent' : 'border-greylight'"
+  (click)="onTaskOpen.emit()"
+  class="hover:bg-ax-blue/10 transition-colors duration-200 border-b"
+  [class]="isLast() ? 'border-transparent' : 'border-ax-greylight'"
 >
-  <td class="pl-[30px] py-3.5 align-middle">
+  <td class="pl-[30px] py-3.5 align-middle pr-10 whitespace-nowrap">
     {{ task()?.date | date : "dd MMMM yyyy" : undefined : "ru-RU" }}
   </td>
-  <td class="py-3.5 align-middle">
-    {{ task()?.userId }}
+  <td class="py-3.5 align-middle pr-10">
+    <div class="flex items-center space-x-2.5">
+      <img
+        [src]="
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        "
+        alt="profile page"
+        class="size-[34px] rounded-full object-cover flex-none"
+      />
+      <p class="whitespace-nowrap overflow-hidden text-ellipsis">
+        {{ task()?.userId }}
+      </p>
+    </div>
   </td>
-  <td class="py-3.5 align-middle">
+  <td class="py-3.5 align-middle pr-10">
     <app-badge [variant]="(task()?.priority | badge) || ''">
       {{ task()?.priority }}
     </app-badge>
   </td>
-  <td class="py-3.5 align-middle">
+  <td class="py-3.5 align-middle pr-10">
     {{ task()?.title }}
   </td>
   <td class="pr-[30px] py-3.5 align-middle text-right">
     <button
-      (click)="removeTask(task()?.id || '')"
-      class="text-black rounded-full p-2 transition-colors duration-200 hover:text-grey hover:bg-greybg"
+      (click)="onTaskRemove.emit(); $event.stopPropagation()"
+      class="text-ax-black rounded-full p-2 transition-colors duration-200 hover:text-ax-grey hover:bg-ax-greybg"
     >
       <svg-icon src="assets/icons/x.svg" />
     </button>

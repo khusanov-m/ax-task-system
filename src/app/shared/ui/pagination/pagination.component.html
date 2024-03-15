@@ -1,0 +1,21 @@
+<span>
+  {{ range() }}
+</span>
+<div class="space-x-5 inline-block ml-10 align-bottom">
+  <button
+    [disabled]="prevDisabled()"
+    class="align-middle text-ax-black"
+    [class]="{ 'text-ax-grey': prevDisabled() }"
+    (click)="onPrev.emit()"
+  >
+    <svg-icon src="assets/icons/chevron-left.svg" />
+  </button>
+  <button
+    [disabled]="nextDisabled()"
+    class="align-middle text-ax-black"
+    [class]="{ 'text-ax-grey': nextDisabled() }"
+    (click)="onNext.emit()"
+  >
+    <svg-icon src="assets/icons/chevron-right.svg" />
+  </button>
+</div>

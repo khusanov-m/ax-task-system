@@ -1,0 +1,43 @@
+<div class="bg-white rounded-[10px] px-[30px] pt-5 pb-1.5">
+  <table class="text-ax-black w-full">
+    <thead>
+      <tr
+        class="*:text-left *:uppercase *:font-normal *:py-2.5 border-b border-ax-greylight"
+      >
+        <th class="pl-[30px] pr-10">Дата Создания</th>
+        <th class="pr-10">Исполнитель</th>
+        <th class="pr-10">Приоритет задачи</th>
+        <th class="pr-10">Название задачи</th>
+        <th class="pr-[30px]">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of (taskList$ | async | sortBy : ((sortBy$ | async)?.value ||
+      '')); track item.id) {
+      <app-task-item
+        [task]="item"
+        [isLast]="$last"
+        class="contents"
+        (onTaskOpen)="openTask(item.id)"
+        (onTaskRemove)="removeTask(item.id)"
+      />
+      }
+      <tr>
+        <td class="px-[30px] py-5 text-right" colspan="5">
+          <app-pagination
+            range="{{
+              currentPage() === 1 ? 1 : (currentPage() - 1) * 10 + 1
+            }} -
+          {{
+              ((taskList$ | async)?.length || 0) + (currentPage() - 1) * 10
+            }} из {{ totalItems }}"
+            [prevDisabled]="currentPage() <= 1"
+            [nextDisabled]="currentPage() >= totalPages"
+            (onPrev)="onPrev()"
+            (onNext)="onNext()"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

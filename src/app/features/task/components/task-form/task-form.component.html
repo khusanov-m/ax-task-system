@@ -1,35 +1,88 @@
-<div class="fixed inset-0 bg-[#000]/10"></div>
+<div class="fixed inset-0 bg-[#000]/10 z-20"></div>
 <div
-  class="fixed inset-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-[50px] pt-[30px] pb-[30px] rounded-[10px] shadow-lg z-50 text-black space-y-5"
+  class="fixed inset-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-[50px] pt-[30px] pb-[30px] rounded-[10px] shadow-lg text-ax-black space-y-5 h-max z-20"
 >
   <div class="flex justify-between items-center">
-    <h2 class="font-semibold text-[28px]">Создание новой задачи</h2>
+    <h2 class="font-semibold text-[28px]">
+      @switch (formOperation()) { @case ('new') { Создание новой задачи } @case
+      ('edit') { Редактирование задачи } @case ('view') { Просмотр задачи } }
+    </h2>
     <button
       (click)="closeDialog()"
-      class="hover:bg-greybg rounded-full p-2 inline-block float-right -mr-4 transition-colors duration-200"
+      class="hover:bg-ax-greybg rounded-full p-2 inline-block float-right -mr-4 transition-colors duration-200"
     >
-      <svg-icon src="assets/icons/x.svg" class="text-grey" />
+      <svg-icon src="assets/icons/x.svg" class="text-ax-grey" />
     </button>
   </div>
 
-  <form class="space-y-[30px]">
+  <form class="space-y-[30px]" [formGroup]="form">
     <div class="flex items-center space-x-5">
-      <app-input label="Дата создания" type="date" />
-      <app-input class="w-full" label="Название" required />
+      <app-input-calendar
+        [disabled]="isDisabled"
+        label="Дата создания"
+        (onSelect)="onDateSelect($event)"
+      />
+      <app-input
+        required
+        label="Название"
+        class="w-full"
+        [form]="form"
+        bind="title"
+        controlName="title"
+        [disabled]="isDisabled"
+      />
     </div>
 
     <div>
-      <app-input label="Описание" required />
+      <app-input
+        required
+        label="Описание"
+        type="textarea"
+        [form]="form"
+        bind="description"
+        controlName="description"
+        [disabled]="isDisabled"
+      />
     </div>
-    <!-- <app-radio-group /> -->
 
-    <div class="">
-      <app-select label="Исполнитель" [options]="[]" required />
+    <div>
+      <app-radio-group
+        required
+        [form]="form"
+        groupName="priority"
+        controlName="priority"
+        label="Приоритет задачи"
+        [options]="priorityOptions"
+      />
     </div>
 
+    <div>
+      <app-select
+        required
+        bind="userId"
+        label="Исполнитель"
+        placeholder="Исполнитель"
+        [form]="form"
+        controlName="userId"
+        [disabled]="isDisabled"
+        [options]="userOptions"
+        (onSelect)="onUserSelect($event)"
+      />
+    </div>
+
+    @if(formOperation() !== 'view' ) {
     <div class="flex space-x-2.5">
-      <app-button variant="primary">Сохранить</app-button>
-      <app-button variant="outline">Сохранить как черновик</app-button>
+      <app-button
+        variant="primary"
+        (onClick)="saveTask()"
+        [disabled]="form.invalid || isDisabled"
+      >
+        Сохранить
+      </app-button>
+      <app-button variant="outline" (onClick)="saveTaskTemplate()">
+        Сохранить как черновик
+      </app-button>
     </div>
+    }
   </form>
 </div>

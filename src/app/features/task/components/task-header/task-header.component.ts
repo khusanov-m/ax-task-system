@@ -8,21 +8,21 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { TaskFormComponent } from '../../features/task/components/task-form/task-form.component';
-import { TaskActions, TaskSelectors } from '../../features/task/store';
+import { SORT_OPTIONS } from '../../../../layout/layout.const';
 import {
   ButtonComponent,
   SelectComponent,
   type IValueName,
-} from '../../shared';
-import { SORT_OPTIONS } from '../layout.const';
+} from '../../../../shared';
+import { TaskActions, TaskSelectors } from '../../store';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-task-header',
   standalone: true,
   imports: [ButtonComponent, SelectComponent, AsyncPipe],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './task-header.component.html',
+  styleUrl: './task-header.component.scss',
 })
 export class HeaderComponent {
   #store = inject(Store);

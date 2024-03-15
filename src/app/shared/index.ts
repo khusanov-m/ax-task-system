@@ -3,6 +3,8 @@ export { SoonComponent } from './tech-pages/soon/soon.component';
 export { BadgeComponent } from './ui/badge/badge.component';
 export { ButtonComponent } from './ui/button/button.component';
 export { InputComponent } from './ui/input/input.component';
+export { PaginationComponent } from './ui/pagination/pagination.component';
+export { RadioGroupComponent } from './ui/radio-group/radio-group.component';
 export { SelectComponent } from './ui/select/select.component';
 export { UiDemoComponent } from './ui/ui-demo/ui-demo.component';
 export type { IKeyValue, IValueName } from './ui/ui.type';

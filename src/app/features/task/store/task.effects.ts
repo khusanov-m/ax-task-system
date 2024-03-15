@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, of, switchMap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, of, switchMap } from 'rxjs';
 import { TaskActions } from '.';
 import { TaskService } from '../task.service';
 import { updateTaskSuccess } from './task.actions';

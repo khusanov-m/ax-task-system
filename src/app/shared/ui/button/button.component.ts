@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
 import { IKeyValue } from '../ui.type';
 import { CnPipe } from './../../utils/cn.pipe';
 
@@ -18,15 +18,17 @@ export class ButtonComponent {
   public withIcon = input(false, {
     transform: (v: boolean | string) => v.toString() === 'true' || v === '',
   });
+  @Output() public onClick = new EventEmitter<void>();
 
   #variants: IKeyValue = {
-    primary: 'bg-[#2B53E1] border-transparent text-white hover:bg-blue',
-    outline: 'bg-white border-blue text-black hover:bg-blue hover:text-white',
+    primary: 'bg-[#2B53E1] border-transparent text-white hover:bg-ax-blue',
+    outline:
+      'bg-white border-ax-blue text-ax-black hover:bg-ax-blue hover:text-white',
   };
 
   #iconState: IKeyValue = {
     primary: '',
-    outline: 'hover:bg-white hover:text-blue',
+    outline: 'hover:bg-white hover:text-ax-blue',
   };
 
   protected get variantClass(): string {

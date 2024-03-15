@@ -1,46 +1,86 @@
 @switch (variant()) { @case('primary') {
-<div class="flex flex-col">
+<div class="flex flex-col" [formGroup]="form()">
   <label [for]="bind()" class="mb-2">
     {{ label() }}@if(required()) {
-    <span class="text-blue">*</span>
+    <span class="text-ax-blue">*</span>
     }
   </label>
+  @if(type() === 'textarea') {
+  <textarea
+    [class]="variantClass"
+    [formControlName]="controlName() || null"
+    class="outline-none resize-none"
+    [id]="bind()"
+    [required]="required()"
+    [placeholder]="placeholder()"
+    name=""
+    cols="10"
+    rows="5"
+  ></textarea>
+  } @else {
   <input
-    [formControl]="control()"
+    [formControlName]="controlName() || null"
     [id]="bind()"
     [type]="type()"
+    [placeholder]="placeholder()"
+    [pattern]="pattern()"
     [required]="required()"
-    [disabled]="disabled()"
     [class]="variantClass"
     class="outline-none"
   />
+  }
 </div>
 } @case('outline') {
-<div class="relative rounded-t bg-white pt-5">
+<div class="relative rounded-t bg-white pt-5" [formGroup]="form()">
+  @if(type() === 'textarea') {
+  <textarea
+    class="outline-none resize-none"
+    [id]="bind()"
+    [required]="required()"
+    [formControlName]="controlName() || null"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [class]="
+      [
+        variantClass,
+        error() ? 'placeholder-shown:border-ax-red border-ax-red' : ''
+      ] | cn
+    "
+    name=""
+    cols="10"
+    rows="5"
+  ></textarea>
+  } @else {
   <input
     [id]="bind()"
     [type]="type()"
+    [pattern]="pattern()"
     [required]="required()"
     [disabled]="disabled()"
     [placeholder]="placeholder()"
+    [formControlName]="controlName() || null"
     [class]="
-      [variantClass, error() ? 'placeholder-shown:border-red border-red' : '']
-        | cn
+      [
+        variantClass,
+        error() ? 'placeholder-shown:border-ax-red border-ax-red' : ''
+      ] | cn
     "
   />
+  }
+
   <label
     [for]="bind()"
     [class]="
       [
         labelClass,
         error()
-          ? 'after:border-red peer-placeholder-shown:text-red peer-focus:text-red text-red'
+          ? 'after:border-ax-red peer-placeholder-shown:text-ax-red peer-focus:text-ax-red text-ax-red'
           : ''
       ] | cn
     "
   >
     {{ label() }}@if(required()) {
-    <span class="text-blue">*</span>
+    <span class="text-ax-blue">*</span>
     }
   </label>
   <button
@@ -51,5 +91,5 @@
   </button>
 </div>
 @if(error()) {
-<span class="pl-3 text-xs text-red">{{ error() }}</span>
+<span class="pl-3 text-xs text-ax-red">{{ error() }}</span>
 } } }

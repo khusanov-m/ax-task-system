@@ -4,14 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        black: "#484848",
-        grey: "#AFB2BE",
-        greylight: "#EAEAEA",
-        greybg: "#F8F8F8",
-        blue: "#4971FF",
-        red: "#F2565C",
-        orange: "#EAA238",
-        green: "#8CC074",
+        "ax-black": "#484848",
+        "ax-grey": "#AFB2BE",
+        "ax-greylight": "#EAEAEA",
+        "ax-greybg": "#F8F8F8",
+        "ax-blue": "#4971FF",
+        "ax-red": "#F2565C",
+        "ax-orange": "#EAA238",
+        "ax-green": "#8CC074",
       },
     },
   },

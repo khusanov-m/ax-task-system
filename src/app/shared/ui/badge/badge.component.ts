@@ -13,10 +13,10 @@ export class BadgeComponent {
   public variant = input('primary');
 
   #variants: IKeyValue = {
-    primary: 'text-blue bg-[#F0F1FF]',
-    warning: 'text-orange bg-[#FAF7E3]',
+    primary: 'text-ax-blue bg-[#F0F1FF]',
+    warning: 'text-ax-orange bg-[#FAF7E3]',
     success: 'text-lime-500 bg-lime-500/10',
-    danger: 'text-red bg-[#FFEEEB]',
+    danger: 'text-ax-red bg-[#FFEEEB]',
   };
 
   protected get variantClass(): string {

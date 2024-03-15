@@ -1,4 +1,4 @@
-<nav class="h-full pt-[27px] pb-[30px] w-[300px] fixed bg-white">
+<nav class="h-full pt-[27px] pb-[30px] w-[300px] fixed bg-white z-10">
   <h1 class="px-[30px] pb-[30px] cursor-pointer" routerLink="/app">
     <svg-icon src="assets/icons/logo.svg" />
   </h1>
@@ -7,7 +7,7 @@
     @for(item of items; track item) {
     <app-navigation-item [item]="item" [class]="{ 'mt-auto': $last }" />
     @if(item.line) {
-    <hr class="my-5 bg-greylight" />
+    <hr class="my-5 bg-ax-greylight" />
     } }
   </ul>
 </nav>

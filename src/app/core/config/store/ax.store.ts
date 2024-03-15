@@ -2,11 +2,11 @@ import { ActionReducerMap } from '@ngrx/store';
 import {
   IAuthState,
   authReducer,
-} from '../../features/auth/store/auth.reducer';
+} from '../../auth/store/auth.reducer';
 import {
   ITaskState,
   taskReducer,
-} from '../../features/task/store/task.reducer';
+} from '../../../features/task/store/task.reducer';
 
 interface RootState {
   auth: IAuthState;

@@ -1,4 +1,4 @@
-import { ResponseConfig } from './../../config/config.type';
+import { ResponseConfig } from '../../core/config/config.type';
 export interface ITaskItem {
   id: string;
   date: Date;

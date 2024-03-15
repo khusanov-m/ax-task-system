@@ -1,0 +1,35 @@
+<p class="mb-2 text-ax-black">
+  {{ label() }}@if(required()) {
+  <span class="text-ax-blue">*</span>
+  }
+</p>
+<div class="flex flex-wrap space-x-[60px]">
+  @if(label()) { } @for(item of options(); track item.value) {
+  <div class="flex items-center relative" [formGroup]="form()">
+    <label
+      class="flex items-center"
+      [for]="item.value"
+      [class]="[item.color || color()] | cn"
+    >
+      <input
+        [attr.disabled]="controlName() ? null : disabled()"
+        [required]="required()"
+        [id]="item.value"
+        type="radio"
+        [value]="item.value"
+        [name]="groupName() || 'radio'"
+        (change)="onChange($event)"
+        class="hidden peer"
+        [formControlName]="controlName() || ''"
+      />
+      <span
+        class="size-6 border-2 inline-block rounded-full bg-white after:transition-transform after:scale-0 after:origin-top-left peer-checked:after:scale-100 peer-checked:after:content-[' '] peer-checked:after:absolute peer-checked:after:left-3 peer-checked:after:top-1/2 peer-checked:after:-translate-x-1/2 peer-checked:after:-translate-y-1/2 peer-checked:after:size-3 peer-checked:after:rounded-full"
+        [class]="[item.color || color()] | cn"
+      ></span>
+      <span class="ml-1.5 text-sm font-medium text-ax-black">{{
+        item.displayName
+      }}</span>
+    </label>
+  </div>
+  }
+</div>

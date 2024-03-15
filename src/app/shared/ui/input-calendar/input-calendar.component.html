@@ -1,0 +1,72 @@
+<p class="mb-2 text-ax-black">
+  {{ label() }}@if(required()) {
+  <span class="text-ax-blue">*</span>
+  }
+</p>
+<div
+  class="relative inline-block"
+  appClickOutside
+  (clickOutside)="datePickerVisible.set(false)"
+>
+  <input
+    type="text"
+    [required]="required()"
+    [disabled]="disabled()"
+    placeholder="Select Date"
+    [value]="selectedDate | date : 'dd MMMM, yyyy'"
+    class="outline-none border-2 border-ax-greylight focus:border-ax-blue px-5 py-2.5 rounded-[10px]"
+    (focus)="datePickerVisible.set(true)"
+  />
+  @if(datePickerVisible()) {
+  <div
+    class="absolute top-14 z-10 bg-white border border-ax-grey rounded-[10px] p-3 space-y-3"
+  >
+    <div class="flex justify-center items-center space-x-3">
+      <div class="flex items-center space-x-1">
+        <button class="align-middle text-ax-black" (click)="changeMonth(-1)">
+          <svg-icon src="assets/icons/chevron-left.svg" />
+        </button>
+        <p>
+          {{ selectedDate | date : "MMMM" }}
+        </p>
+        <button class="align-middle text-ax-black" (click)="changeMonth(1)">
+          <svg-icon src="assets/icons/chevron-right.svg" />
+        </button>
+      </div>
+
+      <div class="flex items-center space-x-1">
+        <button class="align-middle text-ax-black" (click)="changeYear(-1)">
+          <svg-icon src="assets/icons/chevron-left.svg" />
+        </button>
+        <p>
+          {{ selectedDate | date : "yyyy" }}
+        </p>
+        <button class="align-middle text-ax-black" (click)="changeYear(1)">
+          <svg-icon src="assets/icons/chevron-right.svg" />
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col items-center">
+      <div class="days grid grid-cols-7 gap-1">
+        @for(item of ['Пн','Вт','Ср','Чт','Пт', 'Сб', 'Вс']; track item) {
+        <div class="text-center p-1.5">
+          {{ item }}
+        </div>
+        } @for(day of daysInMonth; track day) {
+        <div
+          (click)="selectDate(day)"
+          class="text-center p-1.5 rounded transition-colors duration-200"
+          [class]="
+            day
+              ? 'cursor-pointer border border-transparent hover:bg-ax-blue/10 hover:border-ax-greylight '
+              : ''
+          "
+        >
+          {{ day | date : "d" }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

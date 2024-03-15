@@ -2,13 +2,12 @@ import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
+  EventEmitter,
+  Output,
   input,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { BadgeComponent, BadgePipe } from '../../../../shared';
-import { TaskActions } from '../../store';
 import { ITaskItem } from '../../task.type';
 
 @Component({
@@ -20,11 +19,9 @@ import { ITaskItem } from '../../task.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskItemComponent {
-  #store = inject(Store);
   public isLast = input.required<boolean>();
   public task = input<ITaskItem>();
 
-  public removeTask(id: string): void {
-    this.#store.dispatch(TaskActions.removeTask({ id }));
-  }
+  @Output() public onTaskOpen = new EventEmitter<void>();
+  @Output() public onTaskRemove = new EventEmitter<void>();
 }

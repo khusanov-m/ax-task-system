@@ -27,6 +27,7 @@ export const loadOneTaskFailure = createAction(
   '[Task] Load One Task Failure',
   props<{ error: string }>()
 );
+export const clearOneTask = createAction('[Task] Clear One Task');
 
 export const setSortBy = createAction(
   '[Task] Set Sort By',

@@ -41,15 +41,25 @@
     <p>Inputs:</p>
 
     <div class="*:block space-y-3">
-      <app-input required />
+      <app-input required label="Label" />
 
-      <app-input required disabled variant="outline" />
+      <app-input required disabled label="Disabled" variant="outline" />
 
-      <app-input required variant="outline">
+      <app-input
+        required
+        variant="outline"
+        label="Example"
+        placeholder="Placeholder"
+      >
         <svg-icon src="assets/icons/settings.svg" />
       </app-input>
 
-      <app-input variant="outline" error="Error message">
+      <app-input
+        variant="outline"
+        error="Error message"
+        label="Email"
+        value="test@123"
+      >
         <svg-icon src="assets/icons/settings.svg" />
       </app-input>
     </div>
@@ -80,5 +90,33 @@
         ]"
       />
     </div>
+  </div>
+
+  <div>
+    <app-radio-group
+      label="Приоритет задачи"
+      groupName="ui-demo"
+      [options]="[
+  {
+    displayName: 'Высокий',
+    value: 'high',
+    color: 'peer-checked:after:bg-ax-red border-ax-red',
+  },
+  {
+    displayName: 'Средний',
+    value: 'medium',
+    color: 'peer-checked:after:bg-ax-orange border-ax-orange',
+  },
+  {
+    displayName: 'Низкий',
+    value: 'low',
+    color: 'peer-checked:after:bg-ax-blue border-ax-blue',
+  },
+  ]"
+    />
+  </div>
+
+  <div>
+    <app-input-calendar label="Дата создания" />
   </div>
 </div>

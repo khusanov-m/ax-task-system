@@ -1,10 +1,16 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output, OnDestroy } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+} from '@angular/core';
 
 @Directive({
   selector: '[appClickOutside]',
   standalone: true,
 })
-export class ClickOutsideDirective implements OnDestroy {
+export class ClickOutsideDirective {
   @Output() clickOutside = new EventEmitter<Event>();
 
   constructor(private elementRef: ElementRef) {}
@@ -20,9 +26,5 @@ export class ClickOutsideDirective implements OnDestroy {
     if (!clickedInside) {
       this.clickOutside.emit(event);
     }
-  }
-
-  ngOnDestroy() {
-    // Cleanup if needed
   }
 }

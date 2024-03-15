@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './features/auth/guard/auth.guard';
+import { AuthGuard } from './core/auth/guard/auth.guard';
 import { NotFoundComponent, SoonComponent } from './shared';
 
 export const routes: Routes = [
@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () =>
-      import('./features/auth/auth.component').then((c) => c.AuthComponent),
+      import('./core/auth/auth.component').then((c) => c.AuthComponent),
     title: 'Authentication',
   },
   {
@@ -35,8 +35,8 @@ export const routes: Routes = [
       {
         path: 'tasks',
         loadComponent: () =>
-          import('./features/task/task-list/task-list.component').then(
-            (c) => c.TaskListComponent
+          import('./features/task/task-page.component').then(
+            (c) => c.TaskPageComponent
           ),
       },
       {

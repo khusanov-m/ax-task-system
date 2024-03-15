@@ -7,23 +7,26 @@ import { ITaskItem, ITaskItemResponse, ITaskListResponse } from './task.type';
   providedIn: 'root',
 })
 export class TaskService {
-  #taskList: ITaskItem[] = TASKS_LIST[0].taskList;
+  #taskList: ITaskItem[] = [...TASKS_LIST];
+
+  public getTaskListCount(): Observable<number> {
+    return of(this.#taskList.length);
+  }
 
   public getTaskList(page: number): Observable<ITaskListResponse> {
-    const taskList = TASKS_LIST.find((task) => task.page === page)?.taskList;
-
+    const taskList = TASKS_LIST.slice((page - 1) * 10, page * 10);
     if (!taskList) {
       return of({
         data: { taskList: [] },
-        message: 'Task list not found',
+        message: 'Список задач не найден',
         success: false,
         status: 404,
       }).pipe(delay(1000));
     }
-
+    this.#taskList = taskList;
     return of({
       data: { taskList },
-      message: 'Task list loaded successfully',
+      message: 'Список задач успешно загружен',
       success: true,
       status: 200,
     }).pipe(delay(1000));
@@ -34,7 +37,7 @@ export class TaskService {
     if (task) {
       return of({
         data: { task: task },
-        message: 'Task loaded successfully',
+        message: 'Успешно загружен',
         success: true,
         status: 200,
       }).pipe(delay(1000));
@@ -42,7 +45,7 @@ export class TaskService {
 
     return of({
       data: { task: null },
-      message: 'Task not found',
+      message: 'Задача не найдена',
       success: false,
       status: 404,
     });
@@ -51,7 +54,7 @@ export class TaskService {
   public addTask(
     task: ITaskItem
   ): Observable<{ message: string; success: boolean }> {
-    this.#taskList.unshift(task);
+    this.#taskList = [task, ...this.#taskList];
     return of({
       message: 'Новая задача успешно добавлена',
       success: true,

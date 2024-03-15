@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from '../../features/task/components/task-header/task-header.component';
 import { NavigationComponent } from '../../layout/navigation/navigation.component';
 
 @Component({
@@ -9,8 +9,6 @@ import { NavigationComponent } from '../../layout/navigation/navigation.componen
   imports: [RouterOutlet, NavigationComponent, HeaderComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainLayoutComponent {
-
-}
+export class MainLayoutComponent {}

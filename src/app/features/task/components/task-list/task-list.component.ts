@@ -14,16 +14,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { SortByPipe } from '../../../shared';
-import { TaskFormComponent } from '../components/task-form/task-form.component';
-import { TaskItemComponent } from '../components/task-item/task-item.component';
-import { TaskActions, TaskSelectors } from '../store';
-import { TASKS_LIST } from '../task.const';
+import { PaginationComponent, SortByPipe } from '../../../../shared';
+import { TaskActions, TaskSelectors } from '../../store';
+import { TASKS_LIST } from '../../task.const';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskItemComponent } from '../task-item/task-item.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [TaskItemComponent, SvgIconComponent, SortByPipe, AsyncPipe],
+  imports: [
+    TaskItemComponent,
+    PaginationComponent,
+    SvgIconComponent,
+    SortByPipe,
+    AsyncPipe,
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,10 +40,9 @@ export class TaskListComponent implements OnInit {
   #route = inject(ActivatedRoute);
 
   public currentPage = signal(1);
-  protected readonly totalPages = TASKS_LIST[TASKS_LIST.length - 1].page;
-  protected readonly totalItems =
-    TASKS_LIST[TASKS_LIST.length - 1].taskList.length +
-    (this.totalPages - 1) * 10;
+  protected readonly totalPages =
+    Math.trunc(TASKS_LIST.length / 10) + (TASKS_LIST.length % 10);
+  protected readonly totalItems = TASKS_LIST.length;
 
   public last = input<boolean>();
   public taskList$ = this.#store.select(TaskSelectors.selectTaskList);
@@ -89,6 +94,9 @@ export class TaskListComponent implements OnInit {
     });
     this.dialogComponentRef = this.#modal.createComponent(TaskFormComponent);
     this.#watchCloseDialog();
+  }
+  public removeTask(id: string): void {
+    this.#store.dispatch(TaskActions.removeTask({ id }));
   }
   #watchCloseDialog(): void {
     if (this.dialogComponentRef) {
