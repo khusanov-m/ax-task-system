@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../features/task/components/task-header/task-header.component';
-import { NavigationComponent } from '../../layout/navigation/navigation.component';
+import { NavigationComponent } from '../../layout/components/navigation/navigation.component';
 
 @Component({
   selector: 'app-main-layout',

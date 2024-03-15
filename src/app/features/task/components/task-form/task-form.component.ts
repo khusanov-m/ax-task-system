@@ -17,9 +17,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs';
 import {
-  BadgePipe,
   ButtonComponent,
   IValueName,
   InputComponent,
@@ -45,16 +45,15 @@ import { ITaskItem } from '../../task.type';
   ],
   templateUrl: './task-form.component.html',
   styles: ``,
-  providers: [BadgePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
+  #cookie = inject(CookieService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
   #store = inject(Store);
   #destroy = inject(DestroyRef);
   #fb = inject(FormBuilder);
-  #badgePipe = inject(BadgePipe);
 
   #taskForm = this.#fb.nonNullable.group({
     date: [''],
@@ -89,6 +88,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           this.formOperation.set('view');
           this.#taskForm.disable();
           this.#store.dispatch(TaskActions.loadOneTask({ id: params['id'] }));
+        } else {
+          this.#loadTemplate();
         }
       });
 
@@ -120,10 +121,19 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       };
 
       this.#store.dispatch(TaskActions.addTask({ task }));
+      this.#cookie.delete('taskTemplate');
       this.closeDialog();
     }
   }
-  public saveTaskTemplate(): void {}
+  public saveTaskTemplate(): void {
+    this.#cookie.set('taskTemplate', JSON.stringify(this.#taskForm.value));
+  }
+  #loadTemplate(): void {
+    const template = this.#cookie.get('taskTemplate');
+    if (template) {
+      this.#taskForm.patchValue(JSON.parse(template));
+    }
+  }
 
   public closeDialog(): void {
     this.close.next();

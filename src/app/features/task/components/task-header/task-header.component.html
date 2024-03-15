@@ -4,8 +4,16 @@
   <div class="flex items-center justify-between text-ax-black">
     <h2 class="text-[28px] font-semibold">Управление задачами</h2>
     <div class="space-x-2.5 flex items-center text-xl">
-      <img src="assets/profile.png" alt="profile" />
-      <span>Елена Кот</span>
+      @if(user$ | async; as user) { @if(user.avatar) {
+      <img [src]="user.avatar" alt="profile" class="size-[46px]" />
+      } @else{
+      <span
+        class="size-[46px] rounded-full bg-ax-grey border border-ax-greylight flex items-center justify-center"
+      >
+        {{ user.displayName[0] }}
+      </span>
+      } }
+      <span>{{ (user$ | async)?.displayName }}</span>
     </div>
   </div>
 

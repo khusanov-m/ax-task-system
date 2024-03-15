@@ -1,4 +1,7 @@
-export const NAVIGATION_LIST = [
+import { IValueName } from '../shared';
+import { NavigationItem } from './layout.type';
+
+export const NAVIGATION_LIST: NavigationItem[] = [
   {
     name: 'Главная страница',
     icon: 'assets/icons/home.svg',
@@ -43,7 +46,7 @@ export const NAVIGATION_LIST = [
   },
 ];
 
-export const SORT_OPTIONS = [
+export const SORT_OPTIONS: IValueName[] = [
   { value: 'date', displayName: 'Дате' },
   { value: 'priority', displayName: 'Приоритету' },
 ];

@@ -8,11 +8,12 @@ import {
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CnPipe } from '../../utils/cn.pipe';
 import { IKeyValue } from '../ui.type';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CnPipe, ReactiveFormsModule],
+  imports: [CnPipe, ReactiveFormsModule, SvgIconComponent],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,8 +23,8 @@ export class InputComponent {
   public type = input('text');
   public bind = input('');
   public label = input.required<string>();
-  public placeholder = input('');
-  public pattern = input('');
+  public placeholder = input<string | undefined>('');
+  public autocomplete = input<string | undefined>();
   public form = input<FormGroup>(new FormGroup({}));
   public controlName = input<string>();
   public required = input(false, {
@@ -32,7 +33,7 @@ export class InputComponent {
   public disabled = input(false, {
     transform: (v: boolean | string) => v.toString() === 'true' || v === '',
   });
-  public error = input('');
+  public error = input<string | undefined>('');
 
   @Output() public iconClick = new EventEmitter<void>();
 

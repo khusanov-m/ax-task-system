@@ -14,6 +14,7 @@ import {
   SelectComponent,
   type IValueName,
 } from '../../../../shared';
+import { AuthSelectors } from '../../../auth/store';
 import { TaskActions, TaskSelectors } from '../../store';
 import { TaskFormComponent } from '../task-form/task-form.component';
 
@@ -28,6 +29,7 @@ export class HeaderComponent {
   #store = inject(Store);
   public sortOptions = SORT_OPTIONS;
   public sortBy$ = this.#store.select(TaskSelectors.selectSortBy);
+  public user$ = this.#store.select(AuthSelectors.selectUser);
 
   public handleSort(val: IValueName): void {
     this.#store.dispatch(TaskActions.setSortBy({ sortBy: val }));

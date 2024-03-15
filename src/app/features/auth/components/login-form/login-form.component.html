@@ -1,0 +1,37 @@
+<form [formGroup]="form" class="space-y-8" (ngSubmit)="onSubmit()">
+  <div class="w-[322px] relative">
+    <app-input
+      variant="outline"
+      bind="email"
+      [form]="form"
+      label="Эл. почта"
+      controlName="email"
+      autocomplete="username"
+      [error]="emailErrorMessage"
+    />
+  </div>
+  <div class="w-[322px] relative">
+    <app-input
+      variant="outline"
+      bind="password"
+      [form]="form"
+      label="Пароль"
+      controlName="password"
+      [error]="passwordErrorMessage"
+      autocomplete="current-password"
+      (iconClick)="togglePasswordVisibility()"
+      [type]="showPassword() ? 'text' : 'password'"
+    >
+      <svg-icon
+        [src]="
+          showPassword() ? 'assets/icons/eye-off.svg' : 'assets/icons/eye.svg'
+        "
+        icon
+      />
+    </app-input>
+  </div>
+
+  <div>
+    <app-button [disabled]="form.invalid"> Войти в систему </app-button>
+  </div>
+</form>

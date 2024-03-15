@@ -22,9 +22,9 @@
     [formControlName]="controlName() || null"
     [id]="bind()"
     [type]="type()"
-    [placeholder]="placeholder()"
-    [pattern]="pattern()"
     [required]="required()"
+    [placeholder]="placeholder()"
+    [autocomplete]="autocomplete()"
     [class]="variantClass"
     class="outline-none"
   />
@@ -54,15 +54,15 @@
   <input
     [id]="bind()"
     [type]="type()"
-    [pattern]="pattern()"
     [required]="required()"
-    [disabled]="disabled()"
     [placeholder]="placeholder()"
+    [autocomplete]="autocomplete()"
     [formControlName]="controlName() || null"
     [class]="
       [
         variantClass,
-        error() ? 'placeholder-shown:border-ax-red border-ax-red' : ''
+        error() ? 'placeholder-shown:border-ax-red border-ax-red' : '',
+        type() === 'password' ? 'pr-10' : ''
       ] | cn
     "
   />
@@ -91,5 +91,10 @@
   </button>
 </div>
 @if(error()) {
-<span class="pl-3 text-xs text-ax-red">{{ error() }}</span>
+<div
+  class="text-ax-red w-full flex justify-between items-start gap-x-3 absolute -translate-y-1/2 -bottom-[30px]"
+>
+  <span class="pl-3 text-xs">{{ error() }}</span>
+  <svg-icon src="assets/icons/warning.svg" class="size-[18px]" />
+</div>
 } } }

@@ -17,8 +17,8 @@ import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { routes } from './app.routes';
 import { AXTitleStrategy } from './core/config/route.title-strategy';
-import { AX_TASK_NGRX_EFFECTS } from './core/config/store/ax.effects';
-import { AX_TASK_NGRX_STORE } from './core/config/store/ax.store';
+import { AX_TASK_NGRX_EFFECTS } from './core/store/ax.effects';
+import { AX_TASK_NGRX_STORE } from './core/store/ax.store';
 
 registerLocaleData(localeRu);
 
