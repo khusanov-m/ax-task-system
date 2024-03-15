@@ -27,5 +27,14 @@ export const authReducer = createReducer(
       isLoading: false,
       user,
     })
+  ),
+
+  on(
+    AuthActions.logout,
+    (state): IAuthState => ({
+      ...state,
+      isAuthenticated: false,
+      user: undefined,
+    })
   )
 );

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './features/auth/guard/auth.guard';
 import { NotFoundComponent, SoonComponent } from './shared';
 
 export const routes: Routes = [
@@ -37,6 +37,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/task/task.component').then(
             (c) => c.TaskPageComponent
+          ),
+      },
+      {
+        path: 'logout',
+        loadComponent: () =>
+          import('./features/auth/screen/logout/logout.component').then(
+            (c) => c.LogoutComponent
           ),
       },
       {

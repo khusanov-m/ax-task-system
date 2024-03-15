@@ -27,7 +27,6 @@ export class AuthComponent implements OnInit {
 
   public constructor() {
     this.#isAuthenticated.pipe(takeUntilDestroyed()).subscribe((is) => {
-      console.log(is);
       if (is) {
         this.#router.navigate(['/app']);
       }

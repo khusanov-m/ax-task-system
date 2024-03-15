@@ -79,8 +79,6 @@ export const taskReducer = createReducer(
 
   on(TaskActions.addTask, (state, { task }): ITaskState => {
     const taskList = [task, ...state.taskList];
-    console.log(taskList);
-
     return { ...state, loading: true, taskList: taskList.slice(0, 10) };
   })
 );

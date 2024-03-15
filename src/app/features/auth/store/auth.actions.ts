@@ -19,3 +19,4 @@ export const autoLogin = createAction(
   props<{ user: IUser }>()
 );
 
+export const logout = createAction('[Auth] Logout');

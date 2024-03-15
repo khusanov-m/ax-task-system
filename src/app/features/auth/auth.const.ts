@@ -4,7 +4,7 @@ export const MOCK_USERS: IUser[] = [
   {
     id: '0',
     email: 'admin@gmail.com',
-    password: 'ax_#admin*5-7days',
+    password: 'admin',
     avatar: '',
     displayName: 'Ax Admin',
   },
