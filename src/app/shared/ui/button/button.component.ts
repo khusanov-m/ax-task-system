@@ -1,17 +1,26 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  input,
+  Output,
+} from '@angular/core';
 import { IKeyValue } from '../ui.type';
 import { CnPipe } from './../../utils/cn.pipe';
+import { RouterLink } from '@angular/router';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [CnPipe],
+  imports: [CnPipe, RouterLink, NgTemplateOutlet],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
   public variant = input('primary');
+  public link = input('');
   public disabled = input(false, {
     transform: (v: boolean | string) => v.toString() === 'true' || v === '',
   });

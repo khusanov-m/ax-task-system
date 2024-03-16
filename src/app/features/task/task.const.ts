@@ -240,16 +240,4 @@ export const TASK_MOCK_USERS = [
     displayName: 'Алиса Попова',
     value: 'Алиса Попова',
   },
-  {
-    displayName: 'user1',
-    value: 'user1',
-  },
-  {
-    displayName: 'user2',
-    value: 'user2',
-  },
-  {
-    displayName: 'user3',
-    value: 'user3',
-  },
 ];

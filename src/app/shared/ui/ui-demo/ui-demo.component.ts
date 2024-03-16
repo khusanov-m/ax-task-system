@@ -3,10 +3,10 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { BadgePipe } from '../../utils/badge.pipe';
 import { BadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
-import { InputComponent } from '../input/input.component';
-import { SelectComponent } from '../select/select.component';
-import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { InputCalendarComponent } from '../input-calendar/input-calendar.component';
+import { InputComponent } from '../input/input.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { SelectComponent } from '../select/select.component';
 
 @Component({
   selector: 'app-ui-demo',
@@ -19,7 +19,7 @@ import { InputCalendarComponent } from '../input-calendar/input-calendar.compone
     SvgIconComponent,
     RadioGroupComponent,
     BadgePipe,
-    InputCalendarComponent
+    InputCalendarComponent,
   ],
   templateUrl: './ui-demo.component.html',
   styleUrl: './ui-demo.component.scss',

@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthActions } from './features/auth/store';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +17,15 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  #cookie = inject(CookieService);
+  #store = inject(Store);
   title = 'ax-task-system';
+
+  public ngOnInit(): void {
+    const user = this.#cookie.get('user');
+    if (user) {
+      this.#store.dispatch(AuthActions.autoLogin({ user: JSON.parse(user) }));
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { type IValueName } from '../../../shared';
 import { ITaskItem } from './../task.type';
 
 export interface ITaskState {
-  totalTaskCount: number;
+  totalTaskItems: number;
   taskList: ITaskItem[];
   task: ITaskItem | null;
   loading: boolean;
@@ -12,7 +12,7 @@ export interface ITaskState {
 }
 
 const initialState: ITaskState = {
-  totalTaskCount: 0,
+  totalTaskItems: 0,
   taskList: [],
   task: null,
   loading: false,
@@ -28,9 +28,10 @@ export const taskReducer = createReducer(
   ),
   on(
     TaskActions.loadTaskListSuccess,
-    (state, { taskList }): ITaskState => ({
+    (state, { taskList, count }): ITaskState => ({
       ...state,
       loading: false,
+      totalTaskItems: count,
       taskList,
     })
   ),

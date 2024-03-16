@@ -16,7 +16,6 @@ import { Store } from '@ngrx/store';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { PaginationComponent, SortByPipe } from '../../../../shared';
 import { TaskActions, TaskSelectors } from '../../store';
-import { TASKS_LIST } from '../../task.const';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskItemComponent } from '../task-item/task-item.component';
 
@@ -39,33 +38,49 @@ export class TaskListComponent implements OnInit {
   #router = inject(Router);
   #route = inject(ActivatedRoute);
 
-  public currentPage = signal(1);
-  protected readonly totalPages =
-    Math.trunc(TASKS_LIST.length / 10) + (TASKS_LIST.length % 10);
-  protected readonly totalItems = TASKS_LIST.length;
-
   public last = input<boolean>();
+
+  public currentPage = signal(1);
+  public totalPages = signal(0);
+
+  protected readonly totalItems$ = this.#store.select(
+    TaskSelectors.selectTotalTaskList
+  );
+  protected readonly totalPages$ = this.#store.select(
+    TaskSelectors.selectTotalTaskPages
+  );
+
   public taskList$ = this.#store.select(TaskSelectors.selectTaskList);
   public sortBy$ = this.#store.select(TaskSelectors.selectSortBy);
 
   public ngOnInit(): void {
-    const page = this.#route.snapshot.queryParamMap.get('page');
-    if (!page || !isNaN(Number(page))) {
-      this.#loadTaskList(1);
-      return;
-    }
-    this.currentPage.set(Number(page));
-    this.#loadTaskList(Number(page));
+    this.#watchQueryParams();
+
+    this.totalPages$
+      .pipe(takeUntilDestroyed(this.#destroy))
+      .subscribe((total) => {
+        this.totalPages.set(total);
+      });
+  }
+
+  #watchQueryParams(): void {
+    this.#route.queryParams
+      .pipe(takeUntilDestroyed(this.#destroy))
+      .subscribe((query) => {
+        const page = query['page'];
+        if (!page || isNaN(page)) {
+          this.#router.navigate([''], {
+            queryParams: { page: 1 },
+          });
+        } else if (page) {
+          this.#loadTaskList(Number(page));
+        }
+      });
   }
 
   #loadTaskList(page: number): void {
     this.currentPage.set(page);
     this.#store.dispatch(TaskActions.loadTaskList({ page: page }));
-    this.#router.navigate([''], {
-      queryParams: {
-        page,
-      },
-    });
   }
 
   // Pagination handler
@@ -74,13 +89,25 @@ export class TaskListComponent implements OnInit {
     if (this.currentPage() <= 1) {
       return;
     }
-    this.#loadTaskList(this.currentPage() - 1);
+    this.#router.navigate([''], {
+      queryParams: {
+        page: this.currentPage() - 1,
+      },
+    });
   }
   public onNext(): void {
-    if (this.currentPage() >= this.totalPages) {
+    if (this.currentPage() >= this.totalPages()) {
       return;
     }
-    this.#loadTaskList(this.currentPage() + 1);
+
+    console.log(this.currentPage());
+    console.log(this.totalPages());
+
+    this.#router.navigate([''], {
+      queryParams: {
+        page: this.currentPage() + 1,
+      },
+    });
   }
 
   // Model dialog handler

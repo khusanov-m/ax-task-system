@@ -9,27 +9,21 @@ import { ITaskItem, ITaskItemResponse, ITaskListResponse } from './task.type';
 export class TaskService {
   #taskList: ITaskItem[] = [...TASKS_LIST];
 
-  public getTaskListCount(): Observable<number> {
-    return of(this.#taskList.length);
-  }
-
-  public getTaskList(page: number): Observable<ITaskListResponse> {
-    const taskList = TASKS_LIST.slice((page - 1) * 10, page * 10);
-    if (!taskList) {
+  public getTaskList(): Observable<ITaskListResponse> {
+    if (!this.#taskList.length) {
       return of({
         data: { taskList: [] },
         message: 'Список задач не найден',
         success: false,
         status: 404,
-      }).pipe(delay(1000));
+      });
     }
-    this.#taskList = taskList;
     return of({
-      data: { taskList },
+      data: { taskList: this.#taskList },
       message: 'Список задач успешно загружен',
       success: true,
       status: 200,
-    }).pipe(delay(1000));
+    });
   }
 
   public getTask(id: string): Observable<ITaskItemResponse> {
@@ -40,7 +34,7 @@ export class TaskService {
         message: 'Успешно загружен',
         success: true,
         status: 200,
-      }).pipe(delay(1000));
+      });
     }
 
     return of({
@@ -58,7 +52,7 @@ export class TaskService {
     return of({
       message: 'Новая задача успешно добавлена',
       success: true,
-    }).pipe(delay(1000));
+    });
   }
 
   public removeTask(
@@ -76,12 +70,8 @@ export class TaskService {
     const index = this.#taskList.findIndex((t) => t.id === task.id);
     if (index >= 0) {
       this.#taskList[index] = task;
-      return of({ message: 'Задача успешно обновлена', success: true }).pipe(
-        delay(1000)
-      );
+      return of({ message: 'Задача успешно обновлена', success: true });
     }
-    return of({ message: 'Задача не найдена', success: false }).pipe(
-      delay(1000)
-    );
+    return of({ message: 'Задача не найдена', success: false });
   }
 }

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  OnDestroy,
   OnInit,
   inject,
   signal,
@@ -47,7 +46,7 @@ import { ITaskItem } from '../../task.type';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskFormComponent implements OnInit, OnDestroy {
+export class TaskFormComponent implements OnInit {
   #cookie = inject(CookieService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
@@ -122,7 +121,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
       this.#store.dispatch(TaskActions.addTask({ task }));
       this.#cookie.delete('taskTemplate');
-      this.closeDialog();
+      this.closeDialog(true);
     }
   }
   public saveTaskTemplate(): void {
@@ -135,9 +134,25 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  public closeDialog(): void {
+  public closeDialog(isNew = false): void {
     this.close.next();
     this.close.complete();
+
+    this.#store.dispatch(TaskActions.clearOneTask());
+
+    const query: { id: null; edit: null; page?: number } = {
+      id: null,
+      edit: null,
+    };
+
+    if (isNew) {
+      query['page'] = 1;
+    }
+
+    this.#router.navigate([], {
+      queryParams: query,
+      queryParamsHandling: 'merge',
+    });
   }
 
   #checkLoadTask(): void {
@@ -151,17 +166,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           userId: task.userId,
         });
       }
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this.#store.dispatch(TaskActions.clearOneTask());
-    this.#router.navigate([], {
-      queryParams: {
-        id: null,
-        edit: null,
-      },
-      queryParamsHandling: 'merge',
     });
   }
 }

@@ -8,7 +8,7 @@ export const loadTaskList = createAction(
 );
 export const loadTaskListSuccess = createAction(
   '[Task] Load Task List Success',
-  props<{ taskList: ITaskItem[] }>()
+  props<{ taskList: ITaskItem[], count: number }>()
 );
 export const loadTaskListFailure = createAction(
   '[Task] Load Task List Failure',

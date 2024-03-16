@@ -1,15 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CookieService } from 'ngx-cookie-service';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { AuthActions, AuthSelectors } from './store';
+import { AuthSelectors } from './store';
 
 @Component({
   selector: 'app-auth',
@@ -19,9 +13,8 @@ import { AuthActions, AuthSelectors } from './store';
   styleUrl: './auth.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   #router = inject(Router);
-  #cookie = inject(CookieService);
   #store = inject(Store);
   #isAuthenticated = this.#store.select(AuthSelectors.selectAuthState);
 
@@ -31,12 +24,5 @@ export class AuthComponent implements OnInit {
         this.#router.navigate(['/app']);
       }
     });
-  }
-
-  public ngOnInit(): void {
-    const user = this.#cookie.get('user');
-    if (user) {
-      this.#store.dispatch(AuthActions.autoLogin({ user: JSON.parse(user) }));
-    }
   }
 }

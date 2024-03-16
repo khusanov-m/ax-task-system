@@ -21,7 +21,14 @@
         (onTaskOpen)="openTask(item.id)"
         (onTaskRemove)="removeTask(item.id)"
       />
+      } @empty {
+      <tr>
+        <td class="px-[30px] py-5 text-center" colspan="5">
+          <span class="text-ax-black">Список задач пуст</span>
+        </td>
+      </tr>
       }
+
       <tr>
         <td class="px-[30px] py-5 text-right" colspan="5">
           <app-pagination
@@ -30,9 +37,9 @@
             }} -
           {{
               ((taskList$ | async)?.length || 0) + (currentPage() - 1) * 10
-            }} из {{ totalItems }}"
+            }} из {{ totalItems$ | async }}"
             [prevDisabled]="currentPage() <= 1"
-            [nextDisabled]="currentPage() >= totalPages"
+            [nextDisabled]="currentPage() >= totalPages()"
             (onPrev)="onPrev()"
             (onNext)="onNext()"
           />

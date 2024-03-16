@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  input,
+} from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
@@ -7,12 +13,14 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [SvgIconComponent],
   templateUrl: './pagination.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
   public range = input<string>('');
-  @Output() public onNext = new EventEmitter<void>();
-  @Output() public onPrev = new EventEmitter<void>();
+
   public prevDisabled = input<boolean>(false);
   public nextDisabled = input<boolean>(false);
+
+  @Output() public onNext = new EventEmitter<void>();
+  @Output() public onPrev = new EventEmitter<void>();
 }
